@@ -1,4 +1,4 @@
-package com.s21.ticketsapp.ui.notifications
+package com.s21.presentation.ui.notifications
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

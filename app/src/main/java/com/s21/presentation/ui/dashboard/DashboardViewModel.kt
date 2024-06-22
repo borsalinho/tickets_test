@@ -1,4 +1,4 @@
-package com.s21.ticketsapp.ui.dashboard
+package com.s21.presentation.ui.dashboard
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
