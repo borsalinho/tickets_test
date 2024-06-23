@@ -1,5 +1,6 @@
 package com.s21.presentation.ui.tickets
 
+import android.app.AlertDialog
 import android.app.Application
 import android.os.Bundle
 import android.text.Editable
@@ -12,6 +13,7 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.s21.presentation.app.App
+import com.s21.presentation.ui.dialogs.DestintionChoiseDialogFragment
 
 import com.s21.ticketsapp.databinding.FragmentTicketsBinding
 import javax.inject.Inject
@@ -22,7 +24,7 @@ class TicketsFragment : Fragment() {
     private val binding get() = _binding!!
 
     @Inject lateinit var ticketsViewModel : TicketsViewModel
-    @Inject lateinit var application : Application
+//    @Inject lateinit var application : Application
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +47,13 @@ class TicketsFragment : Fragment() {
             }
         })
         SaveOnSharedPreferences(departurePoint)
+
+
+        val destinationPoint = binding.editDestinationPoint
+        destinationPoint.setOnClickListener {
+            val dialogFragment = DestintionChoiseDialogFragment()
+            dialogFragment.show(requireActivity().supportFragmentManager, "DestintionChoiseDialogFragment")
+        }
 
         return root
     }
