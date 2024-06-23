@@ -41,6 +41,8 @@ android {
 
 dependencies {
 
+    implementation(project(":domain"))
+
     //Dagger2
     implementation("com.google.dagger:dagger:2.45")
     kapt("com.google.dagger:dagger-compiler:2.45")
