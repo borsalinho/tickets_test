@@ -44,6 +44,7 @@ class TicketsFragment : Fragment() {
         ticketsViewModel.departurePoint.observe(viewLifecycleOwner, Observer {
             if (departurePoint.text.toString() != it) {
                 departurePoint.setText(it)
+                departurePoint.setSelection(it.length)
             }
         })
         SaveOnSharedPreferences(departurePoint)
