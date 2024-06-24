@@ -5,7 +5,7 @@ data class TicketOfferViewData(
     val title : String,
     val time_range : List<String>,
     val price : ValueViewData
-)
+) : ViewData
 
 data class ValueViewData(
     val value : Int

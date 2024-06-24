@@ -44,14 +44,19 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":data")) // для di
 
-    //Dagger2
-    implementation("com.google.dagger:dagger:2.45")
-    kapt("com.google.dagger:dagger-compiler:2.45")
-
     //retrofit для di
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     //GSON для di
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    //Dagger2
+    implementation("com.google.dagger:dagger:2.45")
+    kapt("com.google.dagger:dagger-compiler:2.45")
+
+    //AdapterDelegate
+    implementation("com.hannesdorfmann:adapterdelegates4-pagination:4.3.0")
+    //recycleView
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
 
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

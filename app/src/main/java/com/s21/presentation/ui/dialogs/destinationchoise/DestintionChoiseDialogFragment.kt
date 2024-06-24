@@ -11,7 +11,9 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.s21.presentation.app.App
+import com.s21.presentation.ui.adapters.ViewDataAdapter
 import com.s21.presentation.ui.tickets.TicketsViewModel
 import com.s21.ticketsapp.databinding.DialogFragmentDestinationChoiseBinding
 import javax.inject.Inject
@@ -23,6 +25,7 @@ class DestintionChoiseDialogFragment : DialogFragment() {
 
     @Inject lateinit var ticketsViewModel: TicketsViewModel
     @Inject lateinit var destinationChoiseViewModel : DestinationChoiseViewModel
+    @Inject lateinit var viewDataAdapter: ViewDataAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,8 +51,14 @@ class DestintionChoiseDialogFragment : DialogFragment() {
 
         saveOnSharedPreferences(departurePoint)
 
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = viewDataAdapter
+        }
+
         getTicketOfferViewData()
 
+        errorObserve()
 
         binding.button.setOnClickListener {
             dismiss()
@@ -69,17 +78,24 @@ class DestintionChoiseDialogFragment : DialogFragment() {
         })
     }
 
-    private fun getTicketOfferViewData(){
-        try {
-            destinationChoiseViewModel.getTicketOfferViewData()
+    private fun errorObserve(){
+        destinationChoiseViewModel.error.observe(viewLifecycleOwner, Observer { errorMessage ->
+            errorMessage?.let {
+                Toast.makeText(requireActivity(), it, Toast.LENGTH_LONG).show()
+            }
+        })
+    }
 
-            destinationChoiseViewModel.ticketsOffers.observe(viewLifecycleOwner, Observer { tickets ->
-                Log.d("MyLog", "i am a getTicketOfferViewData")
-                Log.d("MyLog", tickets.toString())
-            })
-        } catch (e:Exception){
-            Toast.makeText(requireActivity(),"Не удалось загрузить из сети", Toast.LENGTH_LONG).show()
-        }
+    private fun getTicketOfferViewData(){
+
+        destinationChoiseViewModel.getTicketOfferViewData()
+
+        destinationChoiseViewModel.ticketsOffers.observe(viewLifecycleOwner, Observer { tickets ->
+            Log.d("MyLog", "i am a getTicketOfferViewData")
+            Log.d("MyLog", tickets.toString())
+            viewDataAdapter.items = tickets
+        })
+
     }
 
     private fun saveOnSharedPreferences(departurePoint : EditText){

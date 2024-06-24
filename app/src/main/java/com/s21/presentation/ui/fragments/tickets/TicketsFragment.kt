@@ -22,7 +22,6 @@ class TicketsFragment : Fragment() {
     private val binding get() = _binding!!
 
     @Inject lateinit var ticketsViewModel : TicketsViewModel
-//    @Inject lateinit var application : Application
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
