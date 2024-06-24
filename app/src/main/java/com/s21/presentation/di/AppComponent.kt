@@ -1,7 +1,7 @@
 package com.s21.presentation.di
 
 import com.s21.presentation.MainActivity
-import com.s21.presentation.ui.dialogs.DestintionChoiseDialogFragment
+import com.s21.presentation.ui.dialogs.destinationchoise.DestintionChoiseDialogFragment
 import com.s21.presentation.ui.tickets.TicketsFragment
 import dagger.Component
 import javax.inject.Singleton

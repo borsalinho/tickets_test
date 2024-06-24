@@ -1,7 +1,9 @@
 package com.s21.data.mappers
 
 import com.s21.data.network.model.OfferDto
+import com.s21.data.network.model.ValueDto
 import com.s21.domain.models.Offer
+import com.s21.domain.models.Value
 
 
 fun OfferDto.toOffer() : Offer {
@@ -13,8 +15,8 @@ fun OfferDto.toOffer() : Offer {
     )
 }
 
-fun com.s21.data.network.model.Value.toValue() : com.s21.domain.models.Value {
-    return com.s21.domain.models.Value(
+fun ValueDto.toValue() : Value {
+    return Value(
         value = this.value
     )
 }

@@ -1,7 +1,5 @@
 package com.s21.presentation.ui.tickets
 
-import android.app.AlertDialog
-import android.app.Application
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,7 +11,7 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.s21.presentation.app.App
-import com.s21.presentation.ui.dialogs.DestintionChoiseDialogFragment
+import com.s21.presentation.ui.dialogs.destinationchoise.DestintionChoiseDialogFragment
 
 import com.s21.ticketsapp.databinding.FragmentTicketsBinding
 import javax.inject.Inject
@@ -41,16 +39,14 @@ class TicketsFragment : Fragment() {
         val root: View = binding.root
 
         val departurePoint = binding.editDeparturePoint
-        ticketsViewModel.departurePoint.observe(viewLifecycleOwner, Observer {
-            if (departurePoint.text.toString() != it) {
-                departurePoint.setText(it)
-                departurePoint.setSelection(it.length)
-            }
-        })
-        SaveOnSharedPreferences(departurePoint)
-
-
         val destinationPoint = binding.editDestinationPoint
+
+        setDeparturePointValue(departurePoint)
+
+        saveOnSharedPreferences(departurePoint)
+
+
+
         destinationPoint.setOnClickListener {
             val dialogFragment = DestintionChoiseDialogFragment()
             dialogFragment.show(requireActivity().supportFragmentManager, "DestintionChoiseDialogFragment")
@@ -64,7 +60,16 @@ class TicketsFragment : Fragment() {
         _binding = null
     }
 
-    private fun SaveOnSharedPreferences(departurePoint : EditText){
+    private fun setDeparturePointValue(departurePoint : EditText){
+        ticketsViewModel.departurePoint.observe(viewLifecycleOwner, Observer {
+            if (departurePoint.text.toString() != it) {
+                departurePoint.setText(it)
+                departurePoint.setSelection(it.length)
+            }
+        })
+    }
+
+    private fun saveOnSharedPreferences(departurePoint : EditText){
         departurePoint.addTextChangedListener(object :  TextWatcher{
 
             override fun afterTextChanged(s: Editable?) {

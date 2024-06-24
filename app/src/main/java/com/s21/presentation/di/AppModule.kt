@@ -2,6 +2,8 @@ package com.s21.presentation.di
 
 import android.app.Application
 import android.content.Context
+import com.s21.domain.usecases.GetTicketsOffersUseCase
+import com.s21.presentation.ui.dialogs.destinationchoise.DestinationChoiseViewModel
 import com.s21.presentation.ui.tickets.TicketsViewModel
 import dagger.Module
 import dagger.Provides
@@ -23,6 +25,16 @@ class AppModule(private val application: Application) {
     ) : TicketsViewModel {
         return TicketsViewModel(
             application = application
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideDestinationChoiseViewModel(
+        getTicketsOffersUseCase: GetTicketsOffersUseCase
+    ) : DestinationChoiseViewModel {
+        return DestinationChoiseViewModel(
+            getTicketsOffersUseCase = getTicketsOffersUseCase
         )
     }
 }

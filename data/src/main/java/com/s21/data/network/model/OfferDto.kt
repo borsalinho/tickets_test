@@ -4,5 +4,5 @@ data class OfferDto (
     val id: Int,
     val title: String,
     val town: String,
-    val price: Value
+    val price: ValueDto
 )

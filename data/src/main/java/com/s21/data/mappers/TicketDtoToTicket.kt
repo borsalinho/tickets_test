@@ -1,7 +1,14 @@
 package com.s21.data.mappers
 
+import com.s21.data.network.model.ArrivalDto
+import com.s21.data.network.model.DepartureDto
+import com.s21.data.network.model.HandLuggageDto
+import com.s21.data.network.model.LuggageDto
 import com.s21.data.network.model.TicketDto
-import com.s21.data.network.model.Value
+import com.s21.domain.models.Arrival
+import com.s21.domain.models.Departure
+import com.s21.domain.models.HandLuggage
+import com.s21.domain.models.Luggage
 import com.s21.domain.models.Ticket
 
 fun TicketDto.toTicket() : Ticket {
@@ -22,32 +29,32 @@ fun TicketDto.toTicket() : Ticket {
     )
 }
 
-fun com.s21.data.network.model.Departure.toDeparture() : com.s21.domain.models.Departure {
-    return com.s21.domain.models.Departure(
+fun DepartureDto.toDeparture() : Departure {
+    return Departure(
         town = this.town,
         date = this.date,
         airport = this.airport
     )
 }
 
-fun com.s21.data.network.model.Arrival.toArrival() : com.s21.domain.models.Arrival {
-    return com.s21.domain.models.Arrival(
+fun ArrivalDto.toArrival() : Arrival {
+    return Arrival(
         town = this.town,
         date = this.date,
         airport = this.airport
     )
 }
 
-fun com.s21.data.network.model.Luggage.toLuggage() : com.s21.domain.models.Luggage {
-    return com.s21.domain.models.Luggage(
+fun LuggageDto.toLuggage() : Luggage {
+    return Luggage(
         has_luggage = this.has_luggage,
         price = this.price.toValue(),
 
     )
 }
 
-fun com.s21.data.network.model.Hand_luggage.toHandLuggage() : com.s21.domain.models.Hand_luggage {
-    return com.s21.domain.models.Hand_luggage(
+fun HandLuggageDto.toHandLuggage() : HandLuggage {
+    return HandLuggage(
         has_hand_luggage = this.has_hand_luggage,
         size = this.size
     )

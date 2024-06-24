@@ -23,6 +23,6 @@ class TicketsRepositoryImpl(
 
     override suspend fun getTicketsOffers(): List<TicketOffer> {
 
-        return apiRunMock.getTicketsOffersDto().map { it.toTicketOffer() }
+        return apiRunMock.getTicketsOffersDto().tickets_offers.map { it.toTicketOffer() }
     }
 }

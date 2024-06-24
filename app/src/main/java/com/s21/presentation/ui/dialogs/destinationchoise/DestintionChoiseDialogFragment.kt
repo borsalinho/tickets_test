@@ -1,12 +1,14 @@
-package com.s21.presentation.ui.dialogs
+package com.s21.presentation.ui.dialogs.destinationchoise
 
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import com.s21.presentation.app.App
@@ -20,6 +22,7 @@ class DestintionChoiseDialogFragment : DialogFragment() {
     private val binding get() = _binding!!
 
     @Inject lateinit var ticketsViewModel: TicketsViewModel
+    @Inject lateinit var destinationChoiseViewModel : DestinationChoiseViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +34,8 @@ class DestintionChoiseDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = DialogFragmentDestinationChoiseBinding.inflate(inflater, container, false)
+        _binding = DialogFragmentDestinationChoiseBinding
+            .inflate(inflater, container, false)
         return binding.root
     }
 
@@ -39,14 +43,12 @@ class DestintionChoiseDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val departurePoint = binding.editDeparturePoint
-        ticketsViewModel.departurePoint.observe(viewLifecycleOwner, Observer {
-            if (departurePoint.text.toString() != it) {
-                departurePoint.setText(it)
-                departurePoint.setSelection(it.length)
-            }
-        })
-        SaveOnSharedPreferences(departurePoint)
 
+        setDeparturePointValue(departurePoint)
+
+        saveOnSharedPreferences(departurePoint)
+
+        getTicketOfferViewData()
 
 
         binding.button.setOnClickListener {
@@ -58,7 +60,29 @@ class DestintionChoiseDialogFragment : DialogFragment() {
         _binding = null
     }
 
-    private fun SaveOnSharedPreferences(departurePoint : EditText){
+    private fun setDeparturePointValue(departurePoint : EditText){
+        ticketsViewModel.departurePoint.observe(viewLifecycleOwner, Observer {
+            if (departurePoint.text.toString() != it) {
+                departurePoint.setText(it)
+                departurePoint.setSelection(it.length)
+            }
+        })
+    }
+
+    private fun getTicketOfferViewData(){
+        try {
+            destinationChoiseViewModel.getTicketOfferViewData()
+
+            destinationChoiseViewModel.ticketsOffers.observe(viewLifecycleOwner, Observer { tickets ->
+                Log.d("MyLog", "i am a getTicketOfferViewData")
+                Log.d("MyLog", tickets.toString())
+            })
+        } catch (e:Exception){
+            Toast.makeText(requireActivity(),"Не удалось загрузить из сети", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun saveOnSharedPreferences(departurePoint : EditText){
         departurePoint.addTextChangedListener(object :  TextWatcher{
 
             override fun afterTextChanged(s: Editable?) {

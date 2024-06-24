@@ -11,7 +11,7 @@ data class Ticket(
     val has_transfer: Boolean,
     val has_visa_transfer: Boolean,
     val luggage: Luggage,
-    val hand_luggage:Hand_luggage,
+    val hand_luggage: HandLuggage,
     val is_returnable: Boolean,
     val is_exchangable: Boolean
 )
@@ -33,7 +33,7 @@ data class Luggage(
     val price: Value
 )
 
-data class Hand_luggage(
+data class HandLuggage(
     val has_hand_luggage: Boolean,
     val size: String
 )
