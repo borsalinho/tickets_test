@@ -4,15 +4,20 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
+import androidx.navigation.ActivityNavigator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.s21.presentation.app.App
+import com.s21.presentation.models.PopularOfferViewData
+import com.s21.presentation.models.TicketOfferViewData
 import com.s21.presentation.ui.adapters.ViewDataAdapter
 import com.s21.presentation.ui.tickets.TicketsViewModel
 import com.s21.ticketsapp.databinding.DialogFragmentDestinationChoiseBinding
@@ -46,10 +51,16 @@ class DestintionChoiseDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val departurePoint = binding.editDeparturePoint
+        val destinationPoint = binding.editDestinationPoint
 
         setDeparturePointValue(departurePoint)
 
         saveOnSharedPreferences(departurePoint)
+
+        viewDataAdapter.setOnItemClickListener { item ->
+            val destination = (item as? TicketOfferViewData)?.title ?: ""
+            ticketsViewModel.setDestinationPoint(destination)
+        }
 
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
@@ -58,7 +69,13 @@ class DestintionChoiseDialogFragment : DialogFragment() {
 
         getPopularOffers()
 
+        setDestinationPointValue(destinationPoint)
+
         errorObserve()
+
+        ticketsViewModel.destinationPoint.observe(viewLifecycleOwner, Observer { destination ->
+            Log.d("MyTag", "Observed destinationPoint: $destination")
+        })
 
         binding.button.setOnClickListener {
             dismiss()
@@ -76,6 +93,20 @@ class DestintionChoiseDialogFragment : DialogFragment() {
                 departurePoint.setSelection(it.length)
             }
         })
+
+    }
+
+    private fun setDestinationPointValue(destinationPoint: EditText){
+        destinationPoint.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE ||
+                (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN)) {
+                val text = destinationPoint.text.toString()
+                ticketsViewModel.setDestinationPoint(text)
+                true
+            } else {
+                false
+            }
+        }
     }
 
     private fun errorObserve(){
@@ -87,15 +118,10 @@ class DestintionChoiseDialogFragment : DialogFragment() {
     }
 
     private fun getPopularOffers(){
-
         destinationChoiseViewModel.getPopularOffers()
-
         destinationChoiseViewModel.popularOffers.observe(viewLifecycleOwner, Observer { offers ->
-            Log.d("MyLog", "i am a getTicketOfferViewData")
-            Log.d("MyLog", offers.toString())
             viewDataAdapter.items = offers
         })
-
     }
 
     private fun saveOnSharedPreferences(departurePoint : EditText){

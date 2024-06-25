@@ -7,6 +7,7 @@ import com.s21.domain.usecases.GetPopularOffersUseCase
 import com.s21.domain.usecases.GetTicketsOffersUseCase
 import com.s21.presentation.models.TicketOfferViewData
 import com.s21.presentation.models.ViewData
+import com.s21.presentation.ui.adapters.OnItemClickListener
 import com.s21.presentation.ui.adapters.ViewDataAdapter
 import com.s21.presentation.ui.adapters.ViewDataAdapterFactory
 import com.s21.presentation.ui.dialogs.destinationchoise.DestinationChoiseViewModel
@@ -58,11 +59,13 @@ class AppModule(private val application: Application) {
     @Provides
     fun provideViewDataAdapter(
         @TicketOffer ticketOfferDelegate: AdapterDelegate<List<ViewData>>,
-        @PopularOffer popularOfferDelegate: AdapterDelegate<List<ViewData>>,
+        @PopularOffer popularOfferDelegate: AdapterDelegate<List<ViewData>>
     ) : ViewDataAdapter {
         return ViewDataAdapterFactory.createAdapter(
-            ticketOfferDelegate,
-            popularOfferDelegate
+            delegates = arrayOf(
+                ticketOfferDelegate,
+                popularOfferDelegate
+            )
         )
     }
 
@@ -77,4 +80,5 @@ class AppModule(private val application: Application) {
     fun providePopularOfferViewDataAdapterDelegate() : AdapterDelegate<List<ViewData>> {
         return PopularOfferViewDataAdapterDelegate()
     }
+
 }

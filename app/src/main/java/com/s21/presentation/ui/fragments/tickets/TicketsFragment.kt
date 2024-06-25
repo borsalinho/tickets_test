@@ -41,10 +41,7 @@ class TicketsFragment : Fragment() {
         val destinationPoint = binding.editDestinationPoint
 
         setDeparturePointValue(departurePoint)
-
         saveOnSharedPreferences(departurePoint)
-
-
 
         destinationPoint.setOnClickListener {
             val dialogFragment = DestintionChoiseDialogFragment()

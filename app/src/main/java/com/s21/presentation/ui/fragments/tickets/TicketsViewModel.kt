@@ -19,9 +19,16 @@ class TicketsViewModel(
             .getString("DeparturePoint","") ?: ""}
     val departurePoint: LiveData<String> = _departurePoint
 
+    private val _destinationPoint = MutableLiveData<String>("")
+    val destinationPoint: LiveData<String> = _destinationPoint
+
 
     fun setDeparturePoint(departurePoint : String){
         _departurePoint.value = departurePoint
+    }
+
+    fun setDestinationPoint(destinationPoint : String){
+        _destinationPoint.value = destinationPoint
     }
 
     fun saveOnSharedPreferences(departurePoint : String){

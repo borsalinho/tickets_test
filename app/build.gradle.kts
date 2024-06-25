@@ -51,6 +51,7 @@ dependencies {
 
     //Dagger2
     implementation("com.google.dagger:dagger:2.45")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     kapt("com.google.dagger:dagger-compiler:2.45")
 
     //AdapterDelegate
