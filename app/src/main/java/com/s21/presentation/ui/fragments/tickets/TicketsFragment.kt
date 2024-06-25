@@ -10,6 +10,8 @@ import android.widget.EditText
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.s21.presentation.app.App
 import com.s21.presentation.ui.dialogs.destinationchoise.DestintionChoiseDialogFragment
 
@@ -22,6 +24,8 @@ class TicketsFragment : Fragment() {
     private val binding get() = _binding!!
 
     @Inject lateinit var ticketsViewModel : TicketsViewModel
+    private lateinit var navController: NavController
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +41,8 @@ class TicketsFragment : Fragment() {
         _binding = FragmentTicketsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        navController = findNavController()
+
         val departurePoint = binding.editDeparturePoint
         val destinationPoint = binding.editDestinationPoint
 
@@ -45,7 +51,7 @@ class TicketsFragment : Fragment() {
 
         destinationPoint.setOnClickListener {
             val dialogFragment = DestintionChoiseDialogFragment()
-            dialogFragment.show(requireActivity().supportFragmentManager, "DestintionChoiseDialogFragment")
+            dialogFragment.show(childFragmentManager, "DestintionChoiseDialogFragment")
         }
 
         return root

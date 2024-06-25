@@ -10,6 +10,9 @@
         android:name="com.s21.presentation.ui.tickets.TicketsFragment"
         android:label="@string/title_tickets"
         tools:layout="@layout/fragment_tickets" />
+        <action
+            android:id="@+id/action_destinationChoise_to_choiseTicket"
+            app:destination="@id/choiseTicketFragment" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -22,4 +25,25 @@
         android:name="com.s21.presentation.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/destinationChoiseDialogFragment"
+        android:name="com.s21.presentation.ui.dialogs.destinationchoise.DestintionChoiseDialogFragment"
+        android:label="Destination Choice"
+        tools:layout="@layout/dialog_fragment_destination_choise">
+        <action
+            android:id="@+id/action_destinationChoise_to_choiseTicket"
+            app:destination="@id/choiseTicketFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/choiseTicketFragment"
+        android:name="com.s21.presentation.ui.fragments.choiseticket.ChoiseTicketFragment"
+        android:label="Choice Ticket"
+        tools:layout="@layout/fragment_choise_ticket" />
+    <action
+        android:id="@+id/action_choiseTicketFragment_to_navigation_tickets"
+        app:destination="@id/navigation_tickets" />
+
+
 </navigation>

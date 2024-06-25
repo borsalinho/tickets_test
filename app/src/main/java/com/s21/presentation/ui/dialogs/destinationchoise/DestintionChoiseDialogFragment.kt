@@ -13,13 +13,16 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
-import androidx.navigation.ActivityNavigator
+import androidx.navigation.fragment.NavHostFragment
+
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.s21.presentation.app.App
 import com.s21.presentation.models.PopularOfferViewData
-import com.s21.presentation.models.TicketOfferViewData
+
 import com.s21.presentation.ui.adapters.ViewDataAdapter
 import com.s21.presentation.ui.tickets.TicketsViewModel
+import com.s21.ticketsapp.R
 import com.s21.ticketsapp.databinding.DialogFragmentDestinationChoiseBinding
 import javax.inject.Inject
 
@@ -58,8 +61,9 @@ class DestintionChoiseDialogFragment : DialogFragment() {
         saveOnSharedPreferences(departurePoint)
 
         viewDataAdapter.setOnItemClickListener { item ->
-            val destination = (item as? TicketOfferViewData)?.title ?: ""
+            val destination = (item as? PopularOfferViewData)?.title ?: ""
             ticketsViewModel.setDestinationPoint(destination)
+            openChoiseTickets()
         }
 
         binding.recyclerView.apply {
@@ -102,6 +106,7 @@ class DestintionChoiseDialogFragment : DialogFragment() {
                 (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN)) {
                 val text = destinationPoint.text.toString()
                 ticketsViewModel.setDestinationPoint(text)
+                openChoiseTickets()
                 true
             } else {
                 false
@@ -140,5 +145,12 @@ class DestintionChoiseDialogFragment : DialogFragment() {
                 //
             }
         })
+    }
+
+    private fun openChoiseTickets() {
+        dismiss()
+        parentFragment
+            ?.findNavController()
+            ?.navigate(R.id.action_destinationChoise_to_choiseTicket)
     }
 }

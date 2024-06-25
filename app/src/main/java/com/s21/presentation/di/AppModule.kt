@@ -11,6 +11,7 @@ import com.s21.presentation.ui.adapters.OnItemClickListener
 import com.s21.presentation.ui.adapters.ViewDataAdapter
 import com.s21.presentation.ui.adapters.ViewDataAdapterFactory
 import com.s21.presentation.ui.dialogs.destinationchoise.DestinationChoiseViewModel
+import com.s21.presentation.ui.fragments.choiseticket.ChoiseTicketViewModel
 import com.s21.presentation.ui.gelegates.PopularOfferViewDataAdapterDelegate
 import com.s21.presentation.ui.gelegates.TicketOfferViewDataAdapterDelegate
 import com.s21.presentation.ui.tickets.TicketsViewModel
@@ -53,6 +54,16 @@ class AppModule(private val application: Application) {
     ) : DestinationChoiseViewModel {
         return DestinationChoiseViewModel(
             getPopularOffersUseCase = getPopularOffersUseCase
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideChoiseTicketViewModel(
+        getTicketsOffersUseCase : GetTicketsOffersUseCase
+    ) : ChoiseTicketViewModel {
+        return ChoiseTicketViewModel(
+            getTicketsOffersUseCase = getTicketsOffersUseCase
         )
     }
 

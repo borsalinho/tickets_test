@@ -19,9 +19,6 @@ class DestinationChoiseViewModel(
     private val getPopularOffersUseCase: GetPopularOffersUseCase
 ) : ViewModel() {
 
-//    private val _ticketsOffers = MutableLiveData<List<TicketOfferViewData>>(emptyList())
-//    val ticketsOffers: LiveData<List<TicketOfferViewData>> = _ticketsOffers
-
     private val _popularOffers = MutableLiveData<List<PopularOfferViewData>>(emptyList())
     val popularOffers: LiveData<List<PopularOfferViewData>> = _popularOffers
 
@@ -29,7 +26,7 @@ class DestinationChoiseViewModel(
     val error: LiveData<String?> = _error
 
     fun getPopularOffers(){
-        //имитируем обращение в АПИ для получение популярных направлений
+        //имитация
         viewModelScope.launch {
             try {
                 _popularOffers.value = getPopularOffersUseCase
@@ -47,24 +44,5 @@ class DestinationChoiseViewModel(
             }
         }
     }
-
-//    fun getPopularOffers(){
-//        viewModelScope.launch {
-//            try {
-//                _popularOffers.value = getPopularOffersUseCase
-//                    .execute()
-//                    .map {
-//                        it.toPopularOfferViewData()
-//                    }
-//                _error.value = null
-//            } catch (e: HttpException) {
-//                _error.value = "Ошибка сети: ${e.message()}"
-//            } catch (e: IOException) {
-//                _error.value = "Ошибка ввода-вывода: ${e.message}"
-//            } catch (e: Exception) {
-//                _error.value = "Не удалось загрузить данные: ${e.message}"
-//            }
-//        }
-//    }
 
 }
