@@ -56,7 +56,7 @@ class DestintionChoiseDialogFragment : DialogFragment() {
             adapter = viewDataAdapter
         }
 
-        getTicketOfferViewData()
+        getPopularOffers()
 
         errorObserve()
 
@@ -86,14 +86,14 @@ class DestintionChoiseDialogFragment : DialogFragment() {
         })
     }
 
-    private fun getTicketOfferViewData(){
+    private fun getPopularOffers(){
 
-        destinationChoiseViewModel.getTicketOfferViewData()
+        destinationChoiseViewModel.getPopularOffers()
 
-        destinationChoiseViewModel.ticketsOffers.observe(viewLifecycleOwner, Observer { tickets ->
+        destinationChoiseViewModel.popularOffers.observe(viewLifecycleOwner, Observer { offers ->
             Log.d("MyLog", "i am a getTicketOfferViewData")
-            Log.d("MyLog", tickets.toString())
-            viewDataAdapter.items = tickets
+            Log.d("MyLog", offers.toString())
+            viewDataAdapter.items = offers
         })
 
     }

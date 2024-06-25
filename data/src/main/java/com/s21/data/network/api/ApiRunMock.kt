@@ -1,9 +1,11 @@
 package com.s21.data.network.api
 
 import com.s21.data.network.model.OfferDto
+import com.s21.data.network.model.PopularOfferDto
 import com.s21.data.network.model.TicketDto
 import com.s21.data.network.model.TicketOfferDto
 import com.s21.data.network.model.TicketsOffersDto
+import com.s21.domain.models.PopularOffer
 import retrofit2.http.GET
 
 interface ApiRunMock {
@@ -16,5 +18,8 @@ interface ApiRunMock {
 
     @GET("v3/c0464573-5a13-45c9-89f8-717436748b69")
     suspend fun getTicketsDto() : List<TicketDto>
+
+    // тут можно будет обратится в популярные направления в будущем
+    suspend fun getPopularOffers() : List<PopularOfferDto>
 
 }
