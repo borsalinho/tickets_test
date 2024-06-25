@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,7 +16,9 @@ import com.s21.presentation.app.App
 import com.s21.presentation.ui.tickets.TicketsViewModel
 import com.s21.ticketsapp.databinding.FragmentChoiseTicketBinding
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.s21.presentation.ui.adapters.ViewDataAdapter
 import com.s21.ticketsapp.R
 
 import javax.inject.Inject
@@ -27,6 +30,7 @@ class ChoiseTicketFragment : Fragment() {
 
     @Inject lateinit var ticketsViewModel : TicketsViewModel
     @Inject lateinit var choiseTicketsViewModel : ChoiseTicketViewModel
+    @Inject lateinit var viewDataAdapter: ViewDataAdapter
 
     private lateinit var btnback : Button
     private lateinit var departurePoint : EditText
@@ -50,27 +54,49 @@ class ChoiseTicketFragment : Fragment() {
         destinationPoint = binding.editDestinationPoint
         btnback = binding.btnBack
 
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = viewDataAdapter
+        }
+
+        getTicketsOffers()
+        savePoints()
         setPoints()
         backOnTicketsFragment()
-
+        errorObserve()
 
         return root
     }
 
-    private fun setPoints(){
+    private fun getTicketsOffers(){
+        choiseTicketsViewModel.getTicketsOffers()
+        choiseTicketsViewModel.ticketsOffers.observe(viewLifecycleOwner, Observer { offers ->
+            viewDataAdapter.items = offers
+        })
+    }
+
+    private fun savePoints() {
         ticketsViewModel.departurePoint.observe(viewLifecycleOwner, Observer {
-            if (departurePoint.text.toString() != it) {
-                departurePoint.setText(it)
-                departurePoint.setSelection(it.length)
-                choiseTicketsViewModel.setDeparturePoint(it)
-            }
+            choiseTicketsViewModel.setDeparturePoint(it)
         })
 
         ticketsViewModel.destinationPoint.observe(viewLifecycleOwner, Observer {
+            choiseTicketsViewModel.setDestinationPoint(it)
+        })
+    }
+
+    private fun setPoints() {
+        choiseTicketsViewModel.departurePoint.observe(viewLifecycleOwner, Observer {
+            if (departurePoint.text.toString() != it) {
+                departurePoint.setText(it)
+                departurePoint.setSelection(it.length)
+            }
+        })
+
+        choiseTicketsViewModel.destinationPoint.observe(viewLifecycleOwner, Observer {
             if (destinationPoint.text.toString() != it) {
                 destinationPoint.setText(it)
                 destinationPoint.setSelection(it.length)
-                choiseTicketsViewModel.setDestinationPoint(it)
             }
         })
     }
@@ -93,6 +119,14 @@ class ChoiseTicketFragment : Fragment() {
         val navView = requireActivity().findViewById<BottomNavigationView>(R.id.nav_view)
         navView.visibility = View.GONE
         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+    }
+
+    private fun errorObserve(){
+        choiseTicketsViewModel.error.observe(viewLifecycleOwner, Observer { errorMessage ->
+            errorMessage?.let {
+                Toast.makeText(requireActivity(), it, Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
 }
