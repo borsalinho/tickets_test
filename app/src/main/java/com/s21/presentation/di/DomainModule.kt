@@ -1,6 +1,7 @@
 package com.s21.presentation.di
 
 import com.s21.domain.repositoryes.TicketsRepository
+import com.s21.domain.usecases.GetOffersUseCase
 import com.s21.domain.usecases.GetPopularOffersUseCase
 import com.s21.domain.usecases.GetTicketsOffersUseCase
 import com.s21.domain.usecases.GetTicketsuseCase
@@ -27,6 +28,12 @@ class DomainModule {
     @Provides
     fun provideGetTicketsuseCase(ticketsRepository: TicketsRepository) : GetTicketsuseCase {
         return GetTicketsuseCase(ticketsRepository = ticketsRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetOffersUseCase(ticketsRepository: TicketsRepository) : GetOffersUseCase {
+        return GetOffersUseCase(ticketsRepository = ticketsRepository)
     }
 
 

@@ -2,6 +2,7 @@ package com.s21.presentation.di
 
 import android.app.Application
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
+import com.s21.domain.usecases.GetOffersUseCase
 import com.s21.domain.usecases.GetPopularOffersUseCase
 import com.s21.domain.usecases.GetTicketsOffersUseCase
 import com.s21.domain.usecases.GetTicketsuseCase
@@ -11,6 +12,7 @@ import com.s21.presentation.ui.adapters.ViewDataAdapterFactory
 import com.s21.presentation.ui.dialogs.destinationchoise.DestinationChoiseViewModel
 import com.s21.presentation.ui.fragments.alltickets.AllTicketsViewModel
 import com.s21.presentation.ui.fragments.choiseticket.ChoiseTicketViewModel
+import com.s21.presentation.ui.gelegates.OfferViewDataAdapterDelegate
 import com.s21.presentation.ui.gelegates.PopularOfferViewDataAdapterDelegate
 import com.s21.presentation.ui.gelegates.TicketOfferViewDataAdapterDelegate
 import com.s21.presentation.ui.gelegates.TicketViewDataAdapterDelegate
@@ -35,6 +37,10 @@ class AppModule(private val application: Application) {
     @Retention(AnnotationRetention.RUNTIME)
     annotation class Ticket
 
+    @Qualifier
+    @Retention(AnnotationRetention.RUNTIME)
+    annotation class Offer
+
     @Singleton
     @Provides
     fun providerContext() : Application {
@@ -44,10 +50,12 @@ class AppModule(private val application: Application) {
     @Singleton
     @Provides
     fun provideTicketsViewModel(
-        application : Application
+        application : Application,
+        getOffersUseCase : GetOffersUseCase
     ) : TicketsViewModel {
         return TicketsViewModel(
-            application = application
+            application = application,
+            getOffersUseCase = getOffersUseCase
         )
     }
 
@@ -85,13 +93,15 @@ class AppModule(private val application: Application) {
     fun provideViewDataAdapter(
         @TicketOffer ticketOfferDelegate: AdapterDelegate<List<ViewData>>,
         @PopularOffer popularOfferDelegate: AdapterDelegate<List<ViewData>>,
-        @Ticket ticketDelegate : AdapterDelegate<List<ViewData>>
+        @Ticket ticketDelegate : AdapterDelegate<List<ViewData>>,
+        @Offer offer : AdapterDelegate<List<ViewData>>
     ) : ViewDataAdapter {
         return ViewDataAdapterFactory.createAdapter(
             delegates = arrayOf(
                 ticketOfferDelegate,
                 popularOfferDelegate,
-                ticketDelegate
+                ticketDelegate,
+                offer
             )
         )
     }
@@ -112,6 +122,12 @@ class AppModule(private val application: Application) {
     @Ticket
     fun provideTicketViewDataAdapterDelegate() : AdapterDelegate<List<ViewData>> {
         return TicketViewDataAdapterDelegate()
+    }
+
+    @Provides
+    @Offer
+    fun provideOfferViewDataAdapterDelegate() : AdapterDelegate<List<ViewData>> {
+        return OfferViewDataAdapterDelegate()
     }
 
 }

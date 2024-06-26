@@ -12,7 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.s21.presentation.app.App
+import com.s21.presentation.ui.adapters.ViewDataAdapter
 import com.s21.presentation.ui.dialogs.destinationchoise.DestintionChoiseDialogFragment
 
 import com.s21.ticketsapp.databinding.FragmentTicketsBinding
@@ -24,8 +26,7 @@ class TicketsFragment : Fragment() {
     private val binding get() = _binding!!
 
     @Inject lateinit var ticketsViewModel : TicketsViewModel
-    private lateinit var navController: NavController
-
+    @Inject lateinit var viewDataAdapter: ViewDataAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,13 +42,17 @@ class TicketsFragment : Fragment() {
         _binding = FragmentTicketsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        navController = findNavController()
-
         val departurePoint = binding.editDeparturePoint
         val destinationPoint = binding.editDestinationPoint
 
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = viewDataAdapter
+        }
+
         setDeparturePointValue(departurePoint)
         saveOnSharedPreferences(departurePoint)
+        getOffers()
 
         destinationPoint.setOnClickListener {
             val dialogFragment = DestintionChoiseDialogFragment()
@@ -60,6 +65,13 @@ class TicketsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun getOffers(){
+        ticketsViewModel.getOffers()
+        ticketsViewModel.offers.observe(viewLifecycleOwner, Observer { offers ->
+            viewDataAdapter.items = offers
+        })
     }
 
     private fun setDeparturePointValue(departurePoint : EditText){

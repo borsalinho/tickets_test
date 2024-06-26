@@ -51,4 +51,17 @@
         android:focusableInTouchMode="false"
         app:layout_constraintTop_toBottomOf="@+id/editDeparturePoint" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="402dp"
+        android:layout_height="182dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editDestinationPoint"
+        app:layout_constraintVertical_bias="0.081"
+        tools:listitem="@layout/item_ticket_offer" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
