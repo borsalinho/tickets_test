@@ -39,11 +39,23 @@
     <fragment
         android:id="@+id/choiseTicketFragment"
         android:name="com.s21.presentation.ui.fragments.choiseticket.ChoiseTicketFragment"
-        android:label="Choice Ticket"
+        android:label="Choice Tickets"
         tools:layout="@layout/fragment_choise_ticket" />
-    <action
-        android:id="@+id/action_choiseTicketFragment_to_navigation_tickets"
-        app:destination="@id/navigation_tickets" />
+        <action
+            android:id="@+id/action_choiseTicketFragment_to_navigation_tickets"
+            app:destination="@id/navigation_tickets" />
+        <action
+            android:id="@+id/action_choiseTicketFragment_to_allTicketFragment"
+            app:destination="@id/allTicketsFragment" />
+
+    <fragment
+        android:id="@+id/allTicketsFragment"
+        android:name="com.s21.presentation.ui.fragments.alltickets.AllTicketsFragment"
+        android:label="Final stage"
+        tools:layout="@layout/fragment_all_tickets"/>
+        <action
+            android:id="@+id/action_allTicketsFragment_to_choiseTicketFragment"
+            app:destination="@+id/choiseTicketFragment"/>
 
 
 </navigation>

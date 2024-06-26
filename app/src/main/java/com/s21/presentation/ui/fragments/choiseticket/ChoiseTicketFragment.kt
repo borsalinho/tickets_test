@@ -1,8 +1,6 @@
 package com.s21.presentation.ui.fragments.choiseticket
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +30,8 @@ class ChoiseTicketFragment : Fragment() {
     @Inject lateinit var choiseTicketsViewModel : ChoiseTicketViewModel
     @Inject lateinit var viewDataAdapter: ViewDataAdapter
 
-    private lateinit var btnback : Button
+    private lateinit var btnBack : Button
+    private lateinit var btnSeeAll : Button
     private lateinit var departurePoint : EditText
     private lateinit var destinationPoint : EditText
 
@@ -52,7 +51,8 @@ class ChoiseTicketFragment : Fragment() {
 
         departurePoint = binding.editDeparturePoint
         destinationPoint = binding.editDestinationPoint
-        btnback = binding.btnBack
+        btnBack = binding.btnBack
+        btnSeeAll = binding.btnSeeAll
 
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
@@ -63,6 +63,7 @@ class ChoiseTicketFragment : Fragment() {
         savePoints()
         setPoints()
         backOnTicketsFragment()
+        backShowAllTickets()
         errorObserve()
 
         return root
@@ -102,8 +103,14 @@ class ChoiseTicketFragment : Fragment() {
     }
 
     private fun backOnTicketsFragment(){
-        btnback.setOnClickListener{
+        btnBack.setOnClickListener{
             findNavController().navigate(R.id.action_choiseTicketFragment_to_navigation_tickets)
+        }
+    }
+
+    private fun backShowAllTickets(){
+        btnSeeAll.setOnClickListener{
+            findNavController().navigate(R.id.action_choiseTicketFragment_to_allTicketFragment)
         }
     }
 

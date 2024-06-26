@@ -14,7 +14,7 @@ import com.s21.domain.models.Ticket
 fun TicketDto.toTicket() : Ticket {
     return Ticket(
         id = this.id,
-        badge = this.badge,
+        badge = this.badge ?: "",
         price = this.price.toValue(),
         provider_name = this.provider_name,
         company = this.company,
@@ -22,7 +22,7 @@ fun TicketDto.toTicket() : Ticket {
         arrival = this.arrival.toArrival(),
         has_transfer = this.has_transfer,
         has_visa_transfer = this.has_visa_transfer,
-        luggage = this.luggage.toLuggage(),
+        luggage = this.luggage?.toLuggage(),
         hand_luggage = this.hand_luggage.toHandLuggage(),
         is_returnable = this.is_returnable,
         is_exchangable = this.is_exchangable
@@ -48,7 +48,7 @@ fun ArrivalDto.toArrival() : Arrival {
 fun LuggageDto.toLuggage() : Luggage {
     return Luggage(
         has_luggage = this.has_luggage,
-        price = this.price.toValue(),
+        price = this.price?.toValue(),
 
     )
 }
@@ -56,7 +56,7 @@ fun LuggageDto.toLuggage() : Luggage {
 fun HandLuggageDto.toHandLuggage() : HandLuggage {
     return HandLuggage(
         has_hand_luggage = this.has_hand_luggage,
-        size = this.size
+        size = this.size ?: ""
     )
 }
 

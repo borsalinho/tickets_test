@@ -2,7 +2,7 @@ package com.s21.domain.models
 
 data class Ticket(
     val id: Int,
-    val badge: String,
+    val badge: String = "",
     val price: Value,
     val provider_name: String,
     val company: String,
@@ -10,7 +10,7 @@ data class Ticket(
     val arrival: Arrival,
     val has_transfer: Boolean,
     val has_visa_transfer: Boolean,
-    val luggage: Luggage,
+    val luggage: Luggage? = null,
     val hand_luggage: HandLuggage,
     val is_returnable: Boolean,
     val is_exchangable: Boolean
@@ -30,10 +30,10 @@ data class Arrival(
 
 data class Luggage(
     val has_luggage: Boolean,
-    val price: Value
+    val price: Value? = null
 )
 
 data class HandLuggage(
     val has_hand_luggage: Boolean,
-    val size: String
+    val size: String = ""
 )
