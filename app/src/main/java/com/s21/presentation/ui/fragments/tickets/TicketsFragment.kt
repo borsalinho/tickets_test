@@ -46,9 +46,10 @@ class TicketsFragment : Fragment() {
         val destinationPoint = binding.editDestinationPoint
 
         binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = viewDataAdapter
         }
+
 
         setDeparturePointValue(departurePoint)
         saveOnSharedPreferences(departurePoint)
