@@ -1,6 +1,7 @@
 package com.s21.presentation
 
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -31,10 +32,18 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+
+            if (destination.id == R.id.choiseTicketFragment
+                || destination.id == R.id.allTicketsFragment
+            ) {
+                navView.visibility = View.GONE
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            } else {
+                navView.visibility = View.VISIBLE
+            }
+        }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        return navController.navigateUp() || super.onSupportNavigateUp()
-    }
 }
