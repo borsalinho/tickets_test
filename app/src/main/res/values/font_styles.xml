@@ -41,7 +41,7 @@
         <item name="android:textFontWeight">400</item>
     </style>
 
-    <style name="botton_text_1">
+    <style name="button_text_1">
         <item name="android:fontFamily">@font/semibold</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/white</item>
