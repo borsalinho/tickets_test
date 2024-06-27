@@ -18,26 +18,26 @@
 
     <fragment
         android:id="@+id/navigation_otels"
-        android:name="com.s21.presentation.ui.dashboard.DashboardFragment"
-        android:label="@string/title_otels"
-        tools:layout="@layout/fragment_dashboard" />
+        android:name="com.s21.presentation.ui.dashboard.OtelsFragment"
+        android:label="Отели"
+        tools:layout="@layout/fragment_otels" />
 
     <fragment
         android:id="@+id/navigation_coroche"
         android:name="com.s21.presentation.ui.notifications.CorocheFragment"
-        android:label="@string/title_coroche"
+        android:label="Короче"
         tools:layout="@layout/fragment_coroche" />
 
     <fragment
         android:id="@+id/navigation_subs"
-        android:name="com.s21.presentation.ui.dashboard.DashboardFragment"
-        android:label="@string/title_subs"
+        android:name="com.s21.presentation.ui.fragments.subs.SubsFragment"
+        android:label="Подписки"
         tools:layout="@layout/fragment_subs" />
 
     <fragment
         android:id="@+id/navigation_profiles"
-        android:name="com.s21.presentation.ui.notifications.CorocheFragment"
-        android:label="@string/title_profile"
+        android:name="com.s21.presentation.ui.fragments.profile.ProfileFragment"
+        android:label="Профиль"
         tools:layout="@layout/fragment_profile" />
 
     <fragment

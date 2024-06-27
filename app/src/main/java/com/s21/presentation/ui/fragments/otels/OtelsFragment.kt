@@ -7,14 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.s21.ticketsapp.databinding.FragmentDashboardBinding
+import com.s21.ticketsapp.databinding.FragmentOtelsBinding
 
-class DashboardFragment : Fragment() {
+class OtelsFragment : Fragment() {
 
-    private var _binding: FragmentDashboardBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    private var _binding: FragmentOtelsBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -22,16 +19,15 @@ class DashboardFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dashboardViewModel =
-            ViewModelProvider(this).get(DashboardViewModel::class.java)
 
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+
+        _binding = FragmentOtelsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textDashboard
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+
+        textView.text = "Здесь заглушка для ОТЕЛИ"
+
         return root
     }
 

@@ -1,9 +1,5 @@
 <resources>
     <string name="app_name">ticketsapp</string>
     <string name="title_tickets">Авиабилеты</string>
-    <string name="title_otels">Отели</string>
-    <string name="title_coroche">Короче</string>
-    <string name="title_subs">Подписки</string>
-    <string name="title_profile">Профиль</string>
     <string name="title_chiose_tickets">Поиск</string>
 </resources>
