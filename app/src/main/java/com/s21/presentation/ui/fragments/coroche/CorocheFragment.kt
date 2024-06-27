@@ -7,14 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.s21.ticketsapp.databinding.FragmentNotificationsBinding
+import com.s21.ticketsapp.databinding.FragmentCorocheBinding
 
-class NotificationsFragment : Fragment() {
 
-    private var _binding: FragmentNotificationsBinding? = null
+class CorocheFragment : Fragment() {
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    private var _binding: FragmentCorocheBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -23,12 +21,12 @@ class NotificationsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val notificationsViewModel =
-            ViewModelProvider(this).get(NotificationsViewModel::class.java)
+            ViewModelProvider(this).get(CorocheViewModel::class.java)
 
-        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
+        _binding = FragmentCorocheBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textNotifications
+        val textView: TextView = binding.textCoroche
         notificationsViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }

@@ -5,6 +5,8 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_tickets">
 
+
+
     <fragment
         android:id="@+id/navigation_tickets"
         android:name="com.s21.presentation.ui.tickets.TicketsFragment"
@@ -15,16 +17,28 @@
             app:destination="@id/choiseTicketFragment" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_otels"
         android:name="com.s21.presentation.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_otels"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.s21.presentation.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_coroche"
+        android:name="com.s21.presentation.ui.notifications.CorocheFragment"
+        android:label="@string/title_coroche"
+        tools:layout="@layout/fragment_coroche" />
+
+    <fragment
+        android:id="@+id/navigation_subs"
+        android:name="com.s21.presentation.ui.dashboard.DashboardFragment"
+        android:label="@string/title_subs"
+        tools:layout="@layout/fragment_subs" />
+
+    <fragment
+        android:id="@+id/navigation_profiles"
+        android:name="com.s21.presentation.ui.notifications.CorocheFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/destinationChoiseDialogFragment"
