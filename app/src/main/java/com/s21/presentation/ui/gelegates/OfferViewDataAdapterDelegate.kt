@@ -1,5 +1,6 @@
 package com.s21.presentation.ui.gelegates
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -31,6 +32,7 @@ class OfferViewDataAdapterDelegate :
             R.drawable.image_3,
         )
 
+        @SuppressLint("SetTextI18n")
         fun bind(data: OfferViewData) {
             binding.title.text = data.title
             val imageRes = images.getOrNull(data.id - 1)
@@ -38,7 +40,7 @@ class OfferViewDataAdapterDelegate :
                 binding.image.setImageResource(imageRes) // ну мало ли, картинки куда-то пропадут
             }
 
-            binding.price.text = data.price.value.toString()
+            binding.price.text = "от " + data.price.value.toString() + " ₽"
             binding.town.text = data.town
         }
     }
