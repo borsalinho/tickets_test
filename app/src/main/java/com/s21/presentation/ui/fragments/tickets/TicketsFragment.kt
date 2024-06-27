@@ -3,6 +3,7 @@ package com.s21.presentation.ui.tickets
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.s21.presentation.app.App
+import com.s21.presentation.models.OfferViewData
+import com.s21.presentation.models.ValueViewData
 import com.s21.presentation.ui.adapters.ViewDataAdapter
 import com.s21.presentation.ui.dialogs.destinationchoise.DestintionChoiseDialogFragment
 
@@ -71,8 +74,21 @@ class TicketsFragment : Fragment() {
     private fun getOffers(){
         ticketsViewModel.getOffers()
         ticketsViewModel.offers.observe(viewLifecycleOwner, Observer { offers ->
-            viewDataAdapter.items = offers
+            if (offers.isNullOrEmpty()) {
+                viewDataAdapter.items = listOf(
+                    OfferViewData(1, "Я заглушка 1", "тк Нет сети", ValueViewData(500)),
+                    OfferViewData(2, "Я заглушка 2", "Нет сети же", ValueViewData(500)),
+                    OfferViewData(3, "Я заглушка 3", "все еще Нет сети", ValueViewData(500)),
+                )
+                Log.d("MyLog", "Заглушка данных показана")
+            } else {
+                viewDataAdapter.items = offers
+                Log.d("MyLog", "Данные обновлены в адаптере")
+            }
+            viewDataAdapter.notifyDataSetChanged()
         })
+
+
     }
 
     private fun setDeparturePointValue(departurePoint : EditText){

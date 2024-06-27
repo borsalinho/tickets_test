@@ -2,6 +2,7 @@ package com.s21.presentation.ui.tickets
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -55,11 +56,13 @@ class TicketsViewModel(
     fun getOffers(){
         viewModelScope.launch {
             try {
+                Log.d("MyLog", "я getOffersUseCase" )
                 _offers.value = getOffersUseCase
                     .execute()
                     .map {
                         it.toOfferDataView()
                     }
+                Log.d("MyLog", "пришло " + _offers.value.toString() )
                 _error.value = null
             } catch (e: HttpException) {
                 _error.value = "Ошибка сети: ${e.message()}"
