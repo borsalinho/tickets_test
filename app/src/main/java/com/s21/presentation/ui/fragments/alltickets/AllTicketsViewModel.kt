@@ -22,7 +22,9 @@ class AllTicketsViewModel(
 
 
     private val _destinationPoint = MutableLiveData<String>("")
+    val destinationPoint: LiveData<String> = _destinationPoint
     private val _departurePoint = MutableLiveData<String>("")
+    val departurePoint: LiveData<String> = _departurePoint
 
     private val _departDest = MediatorLiveData<String>().apply {
         addSource(_departurePoint) { departureValue ->

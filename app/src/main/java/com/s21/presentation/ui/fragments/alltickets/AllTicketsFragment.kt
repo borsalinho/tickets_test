@@ -38,6 +38,7 @@ class AllTicketsFragment : Fragment(){
 
     private lateinit var btnback : ImageButton
     private lateinit var textDepartDest : TextView
+    private lateinit var textPassanger : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +55,7 @@ class AllTicketsFragment : Fragment(){
 
         textDepartDest = binding.textDepartDest
         btnback = binding.btnBackToChioseTickets
+        textPassanger = binding.textPassanger
 
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
@@ -63,11 +65,18 @@ class AllTicketsFragment : Fragment(){
         savePoints()
         getTickets()
 
-
+        setPassengerObservers()
 
         backOnChoiseTicketsFragment()
         errorObserve()
         return root
+    }
+
+    private fun setPassengerObservers() {
+        choiseTicketsViewModel.departureDate.observe(viewLifecycleOwner, Observer {
+            textPassanger.text = it + ", 1 пассажир"
+        })
+
     }
 
     private fun savePoints() {
@@ -104,8 +113,6 @@ class AllTicketsFragment : Fragment(){
     }
 
     private fun getTickets(){
-
-
         allTicketsViewModel.getTickets()
         allTicketsViewModel.tickets.observe(viewLifecycleOwner, Observer { tickets ->
             Log.d("MyLog", "Полученные данные: $tickets")
@@ -155,12 +162,3 @@ class AllTicketsFragment : Fragment(){
 
 }
 
-
-//binding.badge.text = data.badge
-//binding.price.text = data.id.toString() + " ₽"
-//binding.textDepartTime.text = data.departure.date // я не помню какой текст приходил, поэтому пусть будет так
-//binding.textArriveTime.text = data.arrival.date
-//binding.textDepartAir.text = data.departure.airport
-//binding.textArriveTime.text = data.arrival.airport
-//
-//binding.textIsTransfer.text = "/ Без пересадок"

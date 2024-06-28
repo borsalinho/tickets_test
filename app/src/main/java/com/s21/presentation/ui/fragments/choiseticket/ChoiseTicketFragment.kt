@@ -148,10 +148,13 @@ class ChoiseTicketFragment : Fragment() {
     }
 
     private fun swapPoints() {
-        val temp = departurePoint.text.toString()
-        departurePoint.setText(destinationPoint.text.toString())
-        destinationPoint.setText(temp)
-        updateSeeAllButtonState()
+        val tempDeparture = choiseTicketsViewModel.departurePoint.value
+        val tempDestination = choiseTicketsViewModel.destinationPoint.value
+        if (!tempDeparture.isNullOrEmpty() && !tempDestination.isNullOrEmpty()){
+            choiseTicketsViewModel.setDeparturePoint(tempDestination)
+            choiseTicketsViewModel.setDestinationPoint(tempDeparture)
+        }
+
     }
 
     private fun clearPoints() {

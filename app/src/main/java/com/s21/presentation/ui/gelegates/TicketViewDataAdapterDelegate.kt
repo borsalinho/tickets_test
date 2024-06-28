@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import com.s21.presentation.models.TicketViewData
 import com.s21.presentation.models.ViewData
+import com.s21.ticketsapp.R
 import com.s21.ticketsapp.databinding.ItemTicketBinding
 
 class TicketViewDataAdapterDelegate :
@@ -37,7 +38,7 @@ class TicketViewDataAdapterDelegate :
             binding.textArriveTime.text = data.arrival.date
             binding.textDepartAir.text = data.departure.airport
             binding.textArriveTime.text = data.arrival.airport
-
+            binding.imgBall.setImageResource(R.drawable.circle_red)
             if (data.has_transfer) {
                 binding.textIsTransfer.text = "/ Без пересадок"
             } else {
