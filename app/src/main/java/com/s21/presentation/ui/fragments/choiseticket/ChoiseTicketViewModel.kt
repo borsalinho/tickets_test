@@ -19,6 +19,11 @@ class ChoiseTicketViewModel(
     private val getTicketsOffersUseCase : GetTicketsOffersUseCase
 ) : ViewModel() {
 
+    private val _departureDate = MutableLiveData<String>()
+    val departureDate: LiveData<String> = _departureDate
+
+    private val _returnDate = MutableLiveData<String>()
+    val returnDate: LiveData<String> = _returnDate
 
     private val _destinationPoint = MutableLiveData<String>("")
     val destinationPoint: LiveData<String> = _destinationPoint
@@ -38,6 +43,14 @@ class ChoiseTicketViewModel(
 
     fun setDeparturePoint(value: String) {
         _departurePoint.value = value
+    }
+
+    fun setDepartureDate(date: String) {
+        _departureDate.value = date
+    }
+
+    fun setReturnDate(date: String) {
+        _returnDate.value = date
     }
 
 
