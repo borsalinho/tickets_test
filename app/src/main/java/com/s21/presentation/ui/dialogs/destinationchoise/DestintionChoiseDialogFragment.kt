@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
@@ -21,6 +22,7 @@ import com.s21.presentation.app.App
 import com.s21.presentation.models.PopularOfferViewData
 
 import com.s21.presentation.ui.adapters.ViewDataAdapter
+import com.s21.presentation.ui.fragments.stubs.Stub1
 import com.s21.presentation.ui.tickets.TicketsViewModel
 import com.s21.ticketsapp.R
 import com.s21.ticketsapp.databinding.DialogFragmentDestinationChoiseBinding
@@ -34,6 +36,11 @@ class DestintionChoiseDialogFragment : DialogFragment() {
     @Inject lateinit var ticketsViewModel: TicketsViewModel
     @Inject lateinit var destinationChoiseViewModel : DestinationChoiseViewModel
     @Inject lateinit var viewDataAdapter: ViewDataAdapter
+
+    lateinit var btnToStub1 : ImageButton
+    lateinit var btnToStub2 : ImageButton
+    lateinit var btnToStub3 : ImageButton
+    lateinit var btnToStub4 : ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +62,10 @@ class DestintionChoiseDialogFragment : DialogFragment() {
 
         val departurePoint = binding.editDeparturePoint
         val destinationPoint = binding.editDestinationPoint
+        btnToStub1 = binding.imageButton
+        btnToStub2 = binding.imageButton2
+        btnToStub3 = binding.imageButton3
+        btnToStub4 = binding.imageButton4
 
         setDeparturePointValue(departurePoint)
 
@@ -76,6 +87,7 @@ class DestintionChoiseDialogFragment : DialogFragment() {
         setDestinationPointValue(destinationPoint)
 
         errorObserve()
+        listenerForButtons()
 
         ticketsViewModel.destinationPoint.observe(viewLifecycleOwner, Observer { destination ->
             Log.d("MyTag", "Observed destinationPoint: $destination")
@@ -97,6 +109,33 @@ class DestintionChoiseDialogFragment : DialogFragment() {
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
+    }
+
+    private fun listenerForButtons(){
+        btnToStub1.setOnClickListener {
+            dismiss()
+            parentFragment
+                ?.findNavController()
+                ?.navigate(R.id.action_destinationChoise_to_stub1)
+        }
+        btnToStub2.setOnClickListener {
+            dismiss()
+            parentFragment
+                ?.findNavController()
+                ?.navigate(R.id.action_destinationChoise_to_stub1)
+        }
+        btnToStub3.setOnClickListener {
+            dismiss()
+            parentFragment
+                ?.findNavController()
+                ?.navigate(R.id.action_destinationChoise_to_stub1)
+        }
+        btnToStub4.setOnClickListener {
+            dismiss()
+            parentFragment
+                ?.findNavController()
+                ?.navigate(R.id.action_destinationChoise_to_stub1)
+        }
     }
 
     private fun setDeparturePointValue(departurePoint : EditText){

@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
 
             if (destination.id == R.id.choiseTicketFragment
                 || destination.id == R.id.allTicketsFragment
+                || destination.id == R.id.stub1
             ) {
                 navView.visibility = View.GONE
                 supportActionBar?.setDisplayHomeAsUpEnabled(false)

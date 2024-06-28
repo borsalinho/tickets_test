@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_destinationChoise_to_choiseTicket"
             app:destination="@id/choiseTicketFragment" />
+        <action
+            android:id="@+id/action_destinationChoise_to_stub1"
+            app:destination="@id/stub1" />
 
     <fragment
         android:id="@+id/navigation_otels"
@@ -39,13 +42,21 @@
         tools:layout="@layout/fragment_profile" />
 
     <fragment
+        android:id="@+id/stub1"
+        android:name="com.s21.presentation.ui.fragments.stubs.Stub1"
+        android:label="Заглушка"
+        tools:layout="@layout/stub" />
+    <action
+        android:id="@+id/action_stub1_to_destinationChoise"
+        app:destination="@id/destinationChoiseDialogFragment" />
+
+    <fragment
         android:id="@+id/destinationChoiseDialogFragment"
         android:name="com.s21.presentation.ui.dialogs.destinationchoise.DestintionChoiseDialogFragment"
         android:label="Destination Choice"
         tools:layout="@layout/dialog_fragment_destination_choise">
-        <action
-            android:id="@+id/action_destinationChoise_to_choiseTicket"
-            app:destination="@id/choiseTicketFragment" />
+
+
     </fragment>
 
     <fragment
