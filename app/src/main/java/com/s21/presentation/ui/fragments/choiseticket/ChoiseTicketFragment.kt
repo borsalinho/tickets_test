@@ -1,13 +1,13 @@
 package com.s21.presentation.ui.fragments.choiseticket
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.s21.presentation.app.App
@@ -15,7 +15,10 @@ import com.s21.presentation.ui.tickets.TicketsViewModel
 import com.s21.ticketsapp.databinding.FragmentChoiseTicketBinding
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.s21.presentation.di.AppModule
+import com.s21.presentation.models.OfferViewData
+import com.s21.presentation.models.TicketOfferViewData
+import com.s21.presentation.models.ValueViewData
 import com.s21.presentation.ui.adapters.ViewDataAdapter
 import com.s21.ticketsapp.R
 
@@ -71,10 +74,31 @@ class ChoiseTicketFragment : Fragment() {
 
     private fun getTicketsOffers(){
         choiseTicketsViewModel.getTicketsOffers()
-        choiseTicketsViewModel.ticketsOffers.observe(viewLifecycleOwner, Observer { offers ->
-            viewDataAdapter.items = offers
+        choiseTicketsViewModel.ticketsOffers.observe(viewLifecycleOwner, Observer { ticketsOffers ->
+            Log.d("MyLog", "Полученные данные: $ticketsOffers")
+            if (ticketsOffers.isNullOrEmpty()) {
+                viewDataAdapter.items = listOf(
+                    TicketOfferViewData(1, "Уральские пельмени",
+                        listOf("нет сети", "это аварийные данные для демонстрации"), ValueViewData(2390)),
+                    TicketOfferViewData(1, "Великая Победа",
+                        listOf("почему вы моки отключили?", "сети все еще нет"), ValueViewData(2390)),
+                    TicketOfferViewData(1, "NordPixar",
+                        listOf("завтра в 13:00", "сегодня в 09:00"), ValueViewData(2390))
+                )
+                Log.d("MyLog", "Заглушка TicketOfferViewData показана")
+            } else {
+                viewDataAdapter.items = ticketsOffers
+                Log.d("MyLog", "Данные обновлены в адаптере")
+            }
+            viewDataAdapter.notifyDataSetChanged()
         })
+
+//        choiseTicketsViewModel.getTicketsOffers()
+//        choiseTicketsViewModel.ticketsOffers.observe(viewLifecycleOwner, Observer { offers ->
+//            viewDataAdapter.items = offers
+//        })
     }
+
 
     private fun savePoints() {
         ticketsViewModel.departurePoint.observe(viewLifecycleOwner, Observer {

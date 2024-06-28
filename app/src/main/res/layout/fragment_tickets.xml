@@ -50,7 +50,7 @@
                 android:layout_gravity="center"
                 android:layout_marginRight="16dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/search" />
+                android:src="@drawable/search_gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"

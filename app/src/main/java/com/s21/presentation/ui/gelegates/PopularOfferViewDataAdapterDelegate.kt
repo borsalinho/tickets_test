@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
 import com.s21.presentation.models.PopularOfferViewData
 import com.s21.presentation.models.ViewData
+import com.s21.ticketsapp.R
 import com.s21.ticketsapp.databinding.ItemPopularOfferBinding
 
 class PopularOfferViewDataAdapterDelegate :
@@ -23,7 +24,21 @@ class PopularOfferViewDataAdapterDelegate :
     }
 
     class PopularOfferViewHolder(private val binding: ItemPopularOfferBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        val images = listOf(
+            R.drawable.image_4,
+            R.drawable.image_5,
+            R.drawable.image_6,
+        )
+
         fun bind(data: PopularOfferViewData) {
+            val imageRes = images.getOrNull(adapterPosition % images.size)
+            if (imageRes != null) {
+                binding.imageView3.setImageResource(imageRes) // ну мало ли, картинки куда-то пропадут
+            } else (
+                    binding.imageView3.setImageResource(R.drawable.image_6)
+            )
+
             binding.title.text = data.title
             binding.status.text = data.status
         }

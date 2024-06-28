@@ -85,9 +85,18 @@ class DestintionChoiseDialogFragment : DialogFragment() {
             dismiss()
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
     }
 
     private fun setDeparturePointValue(departurePoint : EditText){
@@ -153,4 +162,6 @@ class DestintionChoiseDialogFragment : DialogFragment() {
             ?.findNavController()
             ?.navigate(R.id.action_destinationChoise_to_choiseTicket)
     }
+
+
 }
