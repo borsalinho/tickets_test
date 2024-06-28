@@ -93,10 +93,6 @@ class ChoiseTicketFragment : Fragment() {
             viewDataAdapter.notifyDataSetChanged()
         })
 
-//        choiseTicketsViewModel.getTicketsOffers()
-//        choiseTicketsViewModel.ticketsOffers.observe(viewLifecycleOwner, Observer { offers ->
-//            viewDataAdapter.items = offers
-//        })
     }
 
 

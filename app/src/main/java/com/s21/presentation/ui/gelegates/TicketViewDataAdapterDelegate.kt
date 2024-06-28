@@ -1,6 +1,7 @@
 package com.s21.presentation.ui.gelegates
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AbsListItemAdapterDelegate
@@ -24,7 +25,24 @@ class TicketViewDataAdapterDelegate :
 
     class TicketViewHolder(private val binding: ItemTicketBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: TicketViewData) {
-            binding.title.text = data.id.toString()
+
+
+            if (data.badge.isNullOrEmpty()) {
+                binding.badge.visibility = View.GONE
+            } else {
+                binding.badge.text = data.badge
+            }
+            binding.price.text = data.price.value.toString() + " ₽"
+            binding.textDepartTime.text = data.departure.date // я не помню какой текст приходил, поэтому пусть будет так
+            binding.textArriveTime.text = data.arrival.date
+            binding.textDepartAir.text = data.departure.airport
+            binding.textArriveTime.text = data.arrival.airport
+
+            if (data.has_transfer) {
+                binding.textIsTransfer.text = "/ Без пересадок"
+            } else {
+                binding.textIsTransfer.text = ""
+            }
         }
     }
 }
